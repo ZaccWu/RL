@@ -8,3 +8,4 @@ This is my code implementation for Deep-Q-Learning. Install the packages in requ
 
 ***
 ### Update Log
+* 2020.5.29 Successfully operate **CartPole-v0** and **Acrobot-v1** demo.
