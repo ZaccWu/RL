@@ -4,8 +4,8 @@ This is my code implementation for Deep-Q-Learning. Install the packages in requ
 ***
 ### File organization
 * RLEnv：The Environment
- * **gymCartpole.py**: environment adapted from Gym package on OpenAI platform.
- * **Cartpole.py**: refactored environment for portability
+  * **gymCartpole.py**: environment adapted from Gym package on OpenAI platform.
+  * **Cartpole.py**: refactored environment for portability
 * **DQN.py**: Algorithm implementation: deep Q-learning with experience replay.
 * **Model.py**: The structure and training methods for the neural network part.
 
