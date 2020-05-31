@@ -4,6 +4,7 @@ This is my code implementation for Deep-Q-Learning. Install the packages in requ
 ***
 ### File organization
 * RLEnv：The Environment
+* * gymEnv: environment adapted from Gym by OpenAI
 * **DQN.py**: Algorithm implementation: deep Q-learning with experience replay.
 * **Model.py**: The structure and training methods for the neural network part.
 
