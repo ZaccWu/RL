@@ -72,24 +72,22 @@ STEP = 400      # Step limitation in an episode
 TEST = 10       # The number of experiment test every 100 episode
 
 def main():
-  env = CartPoleEnvSetup()      # initialize OpenAI Gym environment
+  env = CartPoleEnvSetup()              # initialize OpenAI Gym environment
   visualizeCp = visualizeCartpole()     # for visualization
-  resetCp = resetCartpole()         # for state reset
-  transitionCp = CartPoleTransition()  # transition function
-  rewardCp = CartPoleReward()        # reward function
-  isterminalCp = isTerminal()            # judge whether is terminal
-  agent = DQN(env)              # initialize dqn agent
+  resetCp = resetCartpole()             # for state reset
+  transitionCp = CartPoleTransition()   # transition function
+  rewardCp = CartPoleReward()           # reward function
+  isterminalCp = isTerminal()           # judge whether it is terminal
+  agent = DQN(env)                      # initialize dqn agent
 
-  # the outer for loop
   for episode in range(EPISODE):
     state = resetCp() # initialize task
-    # the inner for loop
     for t in range(STEP):
-      action = agent.choose_egreedy_action(state)         # e-greedy action for train
+      action = agent.choose_egreedy_action(state)         
       next_state=transitionCp(state, action)
       done = isterminalCp(next_state)
       reward = rewardCp(done)
-      agent.update_Q(state,action,reward,next_state,done) # renew the parameter according to the reward, observe the environment
+      agent.update_Q(state,action,reward,next_state,done)
       state = next_state
       if done:
         break
