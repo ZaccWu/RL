@@ -49,13 +49,9 @@ class Q_network_model:
     return state_batch, action_batch, reward_batch, next_state_batch, done_batch
 
   def train_Q_network(self,replay_memory, BATCH_SIZE, GAMMA):
-    '''
-    Here we train the neural network
-    '''
-
-    # sample random minibatch of transitions from D
-    state_batch, action_batch, reward_batch, next_state_batch, done_batch=self.sample_minibatch(replay_memory,BATCH_SIZE)
-    # calculate y_value
+    state_batch, action_batch, reward_batch, 
+    next_state_batch, done_batch=self.sample_minibatch(replay_memory,BATCH_SIZE)
+    
     y_value_batch = []
     Q_value_batch = self.Q_value.eval(feed_dict={self.state_input:next_state_batch})
     for i in range(0,BATCH_SIZE):
@@ -66,7 +62,5 @@ class Q_network_model:
         y_value_batch.append(reward_batch[i])
 
     # optimize the loss with respect to the network parameters
-    self.optimizer.run(feed_dict={
-      self.y_input:y_value_batch,
-      self.action_input:action_batch,
-      self.state_input:state_batch})
+    self.optimizer.run(feed_dict={self.y_input:y_value_batch,
+                                  self.action_input:action_batch,self.state_input:state_batch})
