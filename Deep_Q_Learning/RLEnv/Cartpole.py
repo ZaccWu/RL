@@ -64,9 +64,9 @@ class CartPoleTransition:
             theta_dot = theta_dot + self.tau * thetaacc
             theta = theta + self.tau * theta_dot
 
-        state = (x, x_dot, theta, theta_dot)
+        next_state = (x, x_dot, theta, theta_dot)
 
-        return np.array(state)
+        return np.array(next_state)
 
 
 class CartPoleReward:
