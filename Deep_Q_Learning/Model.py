@@ -15,7 +15,7 @@ class Q_network_model:
   def Q_network_structure(self):
     '''
     This function is used to determine the structure of the network.
-    Here I used simple MLP with two hidden layer
+    Here I used simple MLP with one hidden layer
     '''
     W1 = tf.Variable(tf.truncated_normal(shape=[self.state_dim,15]))
     b1 = tf.Variable(tf.constant(0.01,shape=[15]))
