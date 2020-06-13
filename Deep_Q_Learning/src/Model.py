@@ -34,7 +34,7 @@ def create_training_method(action_dim,Q_value):
 
 
 class Q_network_model:
-  def __init__(self,state_dim,action_dim):
+  def __init__(self,state_dim,action_dim,param_set):
     self.action_dim=action_dim
 
     self.sample_minibatch=sample_minibatch
@@ -42,11 +42,11 @@ class Q_network_model:
     self.state_input, self.Q_value = Q_network_structure(state_dim, action_dim)
     self.action_input,self.y_input,self.optimizer=create_training_method(action_dim,self.Q_value)
 
-    self.initial_epsilon = 0.5
-    self.final_epsilon = 0.01
-    self.gamma = 0.9  # discount factor for target Q
-    self.REPLAY_SIZE = 10000
-    self.BATCH_SIZE = 32
+    self.initial_epsilon = param_set['initial_epsilon']
+    self.final_epsilon = param_set['final_epsilon']
+    self.gamma = param_set['gamma']
+    self.REPLAY_SIZE = param_set['REPLAY_SIZE']
+    self.BATCH_SIZE = param_set['BATCH_SIZE']
 
     self.replay_memory = deque()
     self.time_step = 0
