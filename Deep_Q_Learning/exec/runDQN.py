@@ -2,12 +2,19 @@ from src.Model import Q_network_model
 from Env.Cartpole import CartPoleEnvSetup,visualizeCartpole
 from Env.Cartpole import resetCartpole,CartPoleTransition,CartPoleReward,isTerminal
 
-ENV_NAME = ['CartPole-v0','Acrobot-v1','Pendulum-v0','MountainCar-v0']
-EPISODE = 10000 # Episode limitation
-STEP = 400      # Step limitation in an episode
-TEST = 10       # The number of experiment test every 100 episode
+param_set={
+  'initial_epsilon':0.5,
+  'final_epsilon':0.01,
+  'gamma':0.9,
+  'REPLAY_SIZE':10000,
+  'BATCH_SIZE':32,
+}
 
 def main():
+  EPISODE = 10000  # Episode limitation
+  STEP = 400  # Step limitation in an episode
+  TEST = 10  # The number of experiment test every 100 episode
+
   env = CartPoleEnvSetup()      # initialize OpenAI Gym environment
   visualizeCp = visualizeCartpole()     # for visualization
   resetCp = resetCartpole()         # for state reset
@@ -17,7 +24,7 @@ def main():
 
   state_dim = env.observation_space.shape[0]
   action_dim = env.action_space.n
-  dqn = Q_network_model(state_dim,action_dim)
+  dqn = Q_network_model(state_dim,action_dim,param_set)
 
   # the outer for loop
   for episode in range(EPISODE):
