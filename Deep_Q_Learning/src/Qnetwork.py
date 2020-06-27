@@ -3,18 +3,18 @@ import numpy as np
 import random
 from collections import deque
 
-def Q_network_structure(state_dim,action_dim):
+def NNstructure(state_dim, action_dim):
   W1 = tf.Variable(tf.truncated_normal(shape=[state_dim, 15]))
   b1 = tf.Variable(tf.constant(0.01, shape=[15]))
   W2 = tf.Variable(tf.truncated_normal(shape=[15, action_dim]))
   b2 = tf.Variable(tf.constant(0.01, shape=[action_dim]))
 
   state_input = tf.placeholder("float", [None, state_dim])  # input layer
-  h_layer = tf.nn.relu(tf.matmul(state_input, W1) + b1)  # hidden layers
-  Q_value = tf.matmul(h_layer, W2) + b2  # Q Value layer
+  h_layer = tf.nn.relu(tf.matmul(state_input, W1) + b1)     # hidden layers
+  Q_value = tf.matmul(h_layer, W2) + b2                     # Q Value layer
   return state_input,Q_value
 
-def sample_minibatch(replay_memory, BATCH_SIZE):
+def SampleMinibatch(replay_memory, BATCH_SIZE):
   Batch_Data = random.sample(replay_memory, BATCH_SIZE)
   state_batch = [d[0] for d in Batch_Data]
   action_batch = [d[1] for d in Batch_Data]
@@ -23,24 +23,23 @@ def sample_minibatch(replay_memory, BATCH_SIZE):
   done_batch = [d[4] for d in Batch_Data]
   return state_batch, action_batch, reward_batch, next_state_batch, done_batch
 
-
-def create_training_method(action_dim,Q_value):
+def TrainingNetwork(action_dim, Q_value, lr):
   action_input = tf.placeholder("float",[None,action_dim]) # one hot presentation
   y_input = tf.placeholder("float",[None])
   Q_action = tf.reduce_sum(tf.multiply(Q_value,action_input),reduction_indices = 1)
   loss = tf.reduce_mean(tf.square(y_input - Q_action))
-  optimizer = tf.train.AdamOptimizer(0.001).minimize(loss)
+  optimizer = tf.train.AdamOptimizer(lr).minimize(loss)
   return action_input,y_input,optimizer
 
 
-class Q_network_model:
+class QNetworkModel:
   def __init__(self,state_dim,action_dim,param_set):
     self.action_dim=action_dim
-
-    self.sample_minibatch=sample_minibatch
-    self.Q_network_structure=Q_network_structure
-    self.state_input, self.Q_value = Q_network_structure(state_dim, action_dim)
-    self.action_input,self.y_input,self.optimizer=create_training_method(action_dim,self.Q_value)
+    self.lr=param_set['lr']
+    self.sample_minibatch=SampleMinibatch
+    self.Q_network_structure=NNstructure
+    self.state_input, self.Q_value = NNstructure(state_dim, action_dim)
+    self.action_input,self.y_input,self.optimizer=TrainingNetwork(action_dim, self.Q_value, self.lr)
 
     self.initial_epsilon = param_set['initial_epsilon']
     self.final_epsilon = param_set['final_epsilon']
@@ -54,7 +53,7 @@ class Q_network_model:
     self.session = tf.InteractiveSession()
     self.session.run(tf.initialize_all_variables())
 
-  def update_Q_network(self, state, action, reward, next_state, done):
+  def UpdateNetwork(self, state, action, reward, next_state, done):
     one_hot_action = np.zeros(self.action_dim)
     one_hot_action[action] = 1
 
@@ -81,7 +80,7 @@ class Q_network_model:
         self.action_input: action_batch,
         self.state_input: state_batch})
 
-  def choose_egreedy_action(self,state):
+  def EgreedyAction(self, state):
     Q_value = self.Q_value.eval(feed_dict = {self.state_input:[state]})[0]
     self.epsilon -= (self.initial_epsilon - self.final_epsilon) / 10000   # epsilon decay
     if random.random() <= self.epsilon:
@@ -89,5 +88,5 @@ class Q_network_model:
     else:
       return np.argmax(Q_value)
 
-  def get_max_action(self,state):
+  def GetMaxAction(self, state):
     return np.argmax(self.Q_value.eval(feed_dict = {self.state_input:[state]})[0])
