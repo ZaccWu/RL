@@ -64,7 +64,7 @@ class dqnModel:
     EvalNetParam = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope='current_net')
 
     with tf.variable_scope('soft_replacement'):
-        self.targetReplaceOp = [tf.assign(t, e) for t, e in zip(TargetNetParam, EvalNetParam)]
+        self.targetReplaceOp = [tf.assign(t, e) for t, e in zip(TargetNetParam, EvalNetParam)] # Here may have an issue
 
   def CreateTrainingMethod(self):
     self.action_input = tf.placeholder("float", [None, self.actionDim]) # one hot presentation
