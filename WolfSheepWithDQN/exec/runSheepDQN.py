@@ -1,3 +1,6 @@
+'''
+Executable file with DQN method
+'''
 import sys
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
