@@ -143,9 +143,10 @@ def main():
 
     dqn = dqnModel2(stateDim, actionDim, paramSet)
 
-    EPISODE = 50000  # Episode limitation
+    EPISODE = 10000  # Episode limitation
     STEP = 125  # Step limitation in an episode
-    TEST = 1000 # Test Episodes
+    TEST_PLOT = 10 # Plot while training
+    TEST = 1000 # Plot while testing
 
     numTrajectories = 10
     param={'numOfAgent': 2}
@@ -175,9 +176,9 @@ def main():
                 break
 
         # plot when training
-        if episode % TEST == 0 and episode!=0:
-            results.append(meanRewards / TEST)
-            print("episode:{}, ave_rewards:{}".format(episode,meanRewards/TEST))
+        if episode % TEST_PLOT == 0 and episode!=0:
+            results.append(meanRewards / TEST_PLOT)
+            print("episode:{}, ave_rewards:{}".format(episode,meanRewards/TEST_PLOT))
             meanRewards=0
         # plot when testing
         if episode == EPISODE-1:
