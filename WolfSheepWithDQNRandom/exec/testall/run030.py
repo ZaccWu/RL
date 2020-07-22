@@ -181,8 +181,6 @@ def main():
                 if done:
                     break
             # plot when training
-            if episode % 5000 == 0:
-                print("episode:{}".format(episode))
             if episode % TEST_PLOT == 0 and episode!=0:
                 results.append(meanRewards / TEST_PLOT)
                 meanRewards=0
