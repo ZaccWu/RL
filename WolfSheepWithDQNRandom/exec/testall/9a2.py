@@ -214,7 +214,7 @@ def main():
     actionDim = len(actionSpace)
 
     I=128
-    J=120
+    J=240
     K=0.0001
     paramSet = {
         'INITIAL_EPSILON': 0.4,

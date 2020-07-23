@@ -209,12 +209,11 @@ def main():
     actionSpace = [(np.cos(directionId * 2 * math.pi / numActionDirections),
                     np.sin(directionId * 2 * math.pi / numActionDirections))
                    for directionId in range(numActionDirections)]
-    actionSpace.append((0,0))
     stateDim = 8
     actionDim = len(actionSpace)
 
     I=128
-    J=120
+    J=240
     K=0.0001
     paramSet = {
         'INITIAL_EPSILON': 0.4,
