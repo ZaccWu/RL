@@ -132,10 +132,10 @@ class SampleTrajectoriesForCoditions:
         return trajectories
 
 def trainTask(dqn,actionSpace):
-    EPISODE = 100 # Episode limitation
+    EPISODE = 50000 # Episode limitation
     STEP = 125  # Step limitation in an episode
-    trainPlot = 10 # plot while training
-    testPlot = 10 # plot while testing
+    trainPlot = 500 # plot while training
+    testPlot = 1000 # plot while testing
 
     numTrajectories = 5
     param={'numOfAgent': 25}
