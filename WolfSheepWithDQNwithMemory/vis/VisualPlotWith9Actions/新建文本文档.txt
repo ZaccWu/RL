@@ -1,0 +1,3 @@
+batch=128 lr=1e-4
+8action, 9action
+width=120,240
