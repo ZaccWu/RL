@@ -1,11 +1,13 @@
 import sys
 import os
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-os.environ['KMP_DUPLICATE_LIB_OK']='True'
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 dirName = os.path.dirname(__file__)
 sys.path.append(os.path.join(dirName, '..'))
 sys.path.append(os.path.join(dirName, '..', '..'))
 import logging
+
 logging.getLogger('tensorflow').setLevel(logging.ERROR)
 
 import random
@@ -21,8 +23,9 @@ from pygame.color import THECOLORS
 
 from src.visualization.drawDemo import DrawBackground, DrawState, VisualizeTraj, InterpolateStateForVisualization
 from src.analyticGeometryFunctions import transCartesianToPolar, transPolarToCartesian
-from src.MDPChasing.env import IsTerminal, IsLegalInitPositions, ResetState, PrepareSheepVelocity, PrepareWolfVelocity, PrepareDistractorVelocity, \
-PrepareAllAgentsVelocities, StayInBoundaryByReflectVelocity, TransitWithInterpolation
+from src.MDPChasing.env import IsTerminal, IsLegalInitPositions, ResetState, PrepareSheepVelocity, PrepareWolfVelocity, \
+    PrepareDistractorVelocity, \
+    PrepareAllAgentsVelocities, StayInBoundaryByReflectVelocity, TransitWithInterpolation
 from src.MDPChasing.reward import RewardFunctionTerminalPenalty
 from src.MDPChasing.policies import RandomPolicy
 from src.chooseFromDistribution import sampleFromDistribution, maxFromDistribution
@@ -31,10 +34,12 @@ from src.trajectoriesSaveLoad import GetSavePath, readParametersFromDf, LoadTraj
     GenerateAllSampleIndexSavePaths, saveToPickle, loadFromPickle
 from src.Qnetwork import dqnModel
 
+
 def flatten(state):
     return state.flatten()
 
-def composeFowardOneTimeStepWithRandomSubtlety(numOfAgent,idx):
+
+def composeFowardOneTimeStepWithRandomSubtlety(numOfAgent, idx):
     # experiment parameter for env
     numMDPTimeStepPerSecond = 5  # change direction every 200ms
     distanceToVisualDegreeRatio = 20
@@ -47,7 +52,7 @@ def composeFowardOneTimeStepWithRandomSubtlety(numOfAgent,idx):
     maxWolfSpeed = int(14.5 * distanceToVisualDegreeRatio / numMDPTimeStepPerSecond)
     wolfSubtleties = [500, 11, 3.3, 1.83, 0.92, 0.31, 0.001]  # 0, 30, 60, .. 180
 
-    if idx==-1:
+    if idx == -1:
         initWolfSubtlety = np.random.choice(wolfSubtleties)
     else:
         initWolfSubtlety = wolfSubtleties[idx]
@@ -74,7 +79,8 @@ def composeFowardOneTimeStepWithRandomSubtlety(numOfAgent,idx):
     isTerminal = IsTerminal(sheepId, wolfId, killzoneRadius)
 
     numFramePerSecond = 30  # visual display fps
-    numFramesToInterpolate = int(numFramePerSecond / numMDPTimeStepPerSecond - 1)  # interpolate each MDP timestep to multiple frames; check terminal for each frame
+    numFramesToInterpolate = int(
+        numFramePerSecond / numMDPTimeStepPerSecond - 1)  # interpolate each MDP timestep to multiple frames; check terminal for each frame
     transitFunction = TransitWithInterpolation(initWolfSubtlety, numFramesToInterpolate, prepareAllAgentsVelocities,
                                                stayInBoundaryByReflectVelocity, isTerminal)
     aliveBonus = 0.01
@@ -82,7 +88,8 @@ def composeFowardOneTimeStepWithRandomSubtlety(numOfAgent,idx):
     rewardFunction = RewardFunctionTerminalPenalty(aliveBonus, deathPenalty, isTerminal)
     forwardOneStep = ForwardOneStep(transitFunction, rewardFunction)
 
-    return transitFunction,rewardFunction,forwardOneStep
+    return transitFunction, rewardFunction, forwardOneStep
+
 
 def initializeEnvironment(numOfAgent):
     sheepId = 0
@@ -100,23 +107,23 @@ def initializeEnvironment(numOfAgent):
     killzoneRadius = 2.5 * distanceToVisualDegreeRatio
     isTerminal = IsTerminal(sheepId, wolfId, killzoneRadius)
 
-    return resetState,isTerminal
+    return resetState, isTerminal
 
 
 class SampleTrajectoriesForCoditions:
-    def __init__(self, numTrajectories, composeFowardOneTimeStepWithRandomSubtlety,initializeEnvironment,parameters,idx):
+    def __init__(self, numTrajectories, composeFowardOneTimeStepWithRandomSubtlety, initializeEnvironment, parameters,
+                 idx):
         self.numTrajectories = numTrajectories
         self.composeFowardOneTimeStepWithRandomSubtlety = composeFowardOneTimeStepWithRandomSubtlety
         self.initializeEnvironment = initializeEnvironment
 
-
         self.numOfAgent = parameters['numOfAgent']
         self.idx = idx
         self.transitFunction, self.rewardFunction, self.forwardOneStep = self.composeFowardOneTimeStepWithRandomSubtlety(
-            self.numOfAgent,self.idx)
-        self.resetState, self.isTerminal= self.initializeEnvironment(self.numOfAgent)
+            self.numOfAgent, self.idx)
+        self.resetState, self.isTerminal = self.initializeEnvironment(self.numOfAgent)
 
-    def __call__(self,sampleAction):
+    def __call__(self, sampleAction):
         self.sampleAction = sampleAction
         numMDPTimeStepPerSecond = 5
         maxRunningSteps = 25 * numMDPTimeStepPerSecond
@@ -131,22 +138,24 @@ class SampleTrajectoriesForCoditions:
             trajectories.append(trajectory)
         return trajectories
 
-def trainTask(dqn,actionSpace):
-    EPISODE = 100 # Episode limitation
+
+def trainTask(dqn, actionSpace):
+    EPISODE = 100000  # Episode limitation
     STEP = 125  # Step limitation in an episode
-    trainPlot = 10 # plot while training
-    testPlot = 10 # plot while testing
+    trainPlot = 10  # plot while training
+    testPlot = 10  # plot while testing
 
     numTrajectories = 5
-    param={'numOfAgent': 25}
+    param = {'numOfAgent': 25}
 
-    results=[]
+    results = []
     meanRewards = 0
 
     for episode in range(EPISODE):
         sampleTrajectoriesForCoditions = SampleTrajectoriesForCoditions(numTrajectories,
                                                                         composeFowardOneTimeStepWithRandomSubtlety,
-                                                                        initializeEnvironment, param,-1) # random Transit
+                                                                        initializeEnvironment, param,
+                                                                        -1)  # random Transit
         transitFunction = sampleTrajectoriesForCoditions.transitFunction
         rewardFunction = sampleTrajectoriesForCoditions.rewardFunction
         isTerminal = sampleTrajectoriesForCoditions.isTerminal
@@ -168,26 +177,27 @@ def trainTask(dqn,actionSpace):
         # plot when training
         if episode % trainPlot == 0 and episode != 0:
             results.append(meanRewards / trainPlot)
-            #print("mean rewards:{},episode:{}".format(meanRewards / trainPlot, episode))
+            # print("mean rewards:{},episode:{}".format(meanRewards / trainPlot, episode))
             meanRewards = 0
-
-
+        # save the model
+        if episode % 10000 == 0:
+            dqn.saveModel(episode,9)
 
         # plot when testing
-        if episode == EPISODE-1:
+        if episode == EPISODE - 1:
             for k in [0, 1, 2, 3, 4, 5, 6]:
                 count = 0
                 for i in range(testPlot):
                     # all functions we need
                     sampleTrajectoriesForCoditions = SampleTrajectoriesForCoditions(numTrajectories,
                                                                                     composeFowardOneTimeStepWithRandomSubtlety,
-                                                                                    initializeEnvironment, param,k)
+                                                                                    initializeEnvironment, param, k)
                     transitFunction = sampleTrajectoriesForCoditions.transitFunction
                     rewardFunction = sampleTrajectoriesForCoditions.rewardFunction
                     isTerminal = sampleTrajectoriesForCoditions.isTerminal
                     resetState = sampleTrajectoriesForCoditions.resetState
                     state = resetState()
-                    rewards=0
+                    rewards = 0
                     for j in range(STEP):
                         actionId = dqn.GetMaxAction(flatten(state))
                         nextState = transitFunction(state, actionSpace[actionId])
@@ -197,11 +207,10 @@ def trainTask(dqn,actionSpace):
                         rewards += reward
                         if done:
                             break
-                    if rewards>=1.25:
-                        count+=1
-                #print("# transitIdx:{},count:{}".format(k,count))
-            print("p =",results)
-
+                    if rewards >= 1.25:
+                        count += 1
+                # print("# transitIdx:{},count:{}".format(k,count))
+            print("p =", results)
 
 
 def main():
@@ -209,28 +218,30 @@ def main():
     actionSpace = [(np.cos(directionId * 2 * math.pi / numActionDirections),
                     np.sin(directionId * 2 * math.pi / numActionDirections))
                    for directionId in range(numActionDirections)]
-    actionSpace.append((0,0))
+    # actionSpace.append((0,0))
     stateDim = 100
     actionDim = len(actionSpace)
+    print(actionDim)
 
-    I=64
-    J=30
-    K=0.0001
-    paramSet = {
-        'INITIAL_EPSILON': 0.4,
-        'FINAL_EPSILON': 0.01,
-        'GAMMA': 0.99,
-        'REPLAY_SIZE': 10000,
-        'BATCH_SIZE': I,
-        'REPLACE_TARGET_FREQ': 20,
-        'HIDDEN_LAYER_WIDTH': J,
-        'LR': K,
-    }
+    for I in [64, 128, 256]:
+        for J in [60, 120, 240]:
+            for K in [0.001, 0.0001, 0.00001]:
+                paramSet = {
+                    'INITIAL_EPSILON': 0.4,
+                    'FINAL_EPSILON': 0.01,
+                    'GAMMA': 0.99,
+                    'REPLAY_SIZE': 10000,
+                    'BATCH_SIZE': I,
+                    'REPLACE_TARGET_FREQ': 20,
+                    'HIDDEN_LAYER_WIDTH': J,
+                    'LR': K,
+                }
 
-    dqn = dqnModel(stateDim, actionDim, paramSet)
-    trainTask(dqn,actionSpace)
-    print("# batch size:{},width:{},lr:{}".format(I,J,K))
-    print("#-----------------------------------")
+                dqn = dqnModel(stateDim, actionDim, paramSet)
+                trainTask(dqn, actionSpace)
+                print("# batch size:{},width:{},lr:{}".format(I, J, K))
+                print("#-----------------------------------")
+
 
 if __name__ == '__main__':
     main()

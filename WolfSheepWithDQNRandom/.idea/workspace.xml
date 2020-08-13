@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:pip" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:pip" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:Deep_Q_Learning" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="708c4c06-2297-467c-a68d-c552c0df8190" name="Default Changelist" comment="" />
+    <list default="true" id="708c4c06-2297-467c-a68d-c552c0df8190" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/runExample.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/testDifferentTrans8Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/exec/testDifferentTrans8Action.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exec/testDifferentTrans9Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/exec/testDifferentTrans9Action.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Qnetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Qnetwork.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,7 +66,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.testDifferentTrans8Action">
     <configuration name="testDifferentTrans" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="WolfSheepWithDQNRandom" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -43,8 +88,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="testDifferentTrans8Action" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="WolfSheepWithDQNRandom" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/exec" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/exec/testDifferentTrans8Action.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.testDifferentTrans8Action" />
         <item itemvalue="Python.testDifferentTrans" />
       </list>
     </recent_temporary>
@@ -62,22 +129,37 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state width="1179" height="190" key="GridCell.Tab.0.bottom" timestamp="1595484466252">
+    <state x="382" y="136" key="FileChooserDialogImpl" timestamp="1597280752523">
       <screen x="0" y="0" width="1200" height="760" />
     </state>
-    <state width="1179" height="190" key="GridCell.Tab.0.bottom/0.0.1200.760@0.0.1200.760" timestamp="1595484466252" />
-    <state width="1179" height="190" key="GridCell.Tab.0.center" timestamp="1595484466252">
+    <state x="382" y="136" key="FileChooserDialogImpl/0.0.1200.760@0.0.1200.760" timestamp="1597280752523" />
+    <state width="1179" height="2" key="GridCell.Tab.0.bottom" timestamp="1597281471835">
       <screen x="0" y="0" width="1200" height="760" />
     </state>
-    <state width="1179" height="190" key="GridCell.Tab.0.center/0.0.1200.760@0.0.1200.760" timestamp="1595484466252" />
-    <state width="1179" height="190" key="GridCell.Tab.0.left" timestamp="1595484466251">
+    <state width="1179" height="2" key="GridCell.Tab.0.bottom/0.0.1200.760@0.0.1200.760" timestamp="1597281471835" />
+    <state width="1179" height="2" key="GridCell.Tab.0.center" timestamp="1597281471835">
       <screen x="0" y="0" width="1200" height="760" />
     </state>
-    <state width="1179" height="190" key="GridCell.Tab.0.left/0.0.1200.760@0.0.1200.760" timestamp="1595484466251" />
-    <state width="1179" height="190" key="GridCell.Tab.0.right" timestamp="1595484466252">
+    <state width="1179" height="2" key="GridCell.Tab.0.center/0.0.1200.760@0.0.1200.760" timestamp="1597281471835" />
+    <state width="1179" height="2" key="GridCell.Tab.0.left" timestamp="1597281471835">
       <screen x="0" y="0" width="1200" height="760" />
     </state>
-    <state width="1179" height="190" key="GridCell.Tab.0.right/0.0.1200.760@0.0.1200.760" timestamp="1595484466252" />
+    <state width="1179" height="2" key="GridCell.Tab.0.left/0.0.1200.760@0.0.1200.760" timestamp="1597281471835" />
+    <state width="1179" height="2" key="GridCell.Tab.0.right" timestamp="1597281471835">
+      <screen x="0" y="0" width="1200" height="760" />
+    </state>
+    <state width="1179" height="2" key="GridCell.Tab.0.right/0.0.1200.760@0.0.1200.760" timestamp="1597281471835" />
   </component>
 </project>

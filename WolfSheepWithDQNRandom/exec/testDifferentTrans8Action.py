@@ -132,7 +132,7 @@ class SampleTrajectoriesForCoditions:
         return trajectories
 
 def trainTask(dqn,actionSpace):
-    EPISODE = 100 # Episode limitation
+    EPISODE = 100000 # Episode limitation
     STEP = 125  # Step limitation in an episode
     trainPlot = 10 # plot while training
     testPlot = 10 # plot while testing
@@ -170,6 +170,9 @@ def trainTask(dqn,actionSpace):
             results.append(meanRewards / trainPlot)
             #print("mean rewards:{},episode:{}".format(meanRewards / trainPlot, episode))
             meanRewards = 0
+        # save the model
+        if episode % 100 == 0:
+            dqn.saveModel(episode,8)
 
 
 
@@ -209,29 +212,29 @@ def main():
     actionSpace = [(np.cos(directionId * 2 * math.pi / numActionDirections),
                     np.sin(directionId * 2 * math.pi / numActionDirections))
                    for directionId in range(numActionDirections)]
-
+    #actionSpace.append((0,0))
     stateDim = 100
     actionDim = len(actionSpace)
     print(actionDim)
 
-    I=64
-    J=30
-    K=0.0001
-    paramSet = {
-        'INITIAL_EPSILON': 0.4,
-        'FINAL_EPSILON': 0.01,
-        'GAMMA': 0.99,
-        'REPLAY_SIZE': 10000,
-        'BATCH_SIZE': I,
-        'REPLACE_TARGET_FREQ': 20,
-        'HIDDEN_LAYER_WIDTH': J,
-        'LR': K,
-    }
+    for I in [64, 128, 256]:
+        for J in [60, 120, 240]:
+            for K in [0.001,0.0001,0.00001]:
+                paramSet = {
+                    'INITIAL_EPSILON': 0.4,
+                    'FINAL_EPSILON': 0.01,
+                    'GAMMA': 0.99,
+                    'REPLAY_SIZE': 10000,
+                    'BATCH_SIZE': I,
+                    'REPLACE_TARGET_FREQ': 20,
+                    'HIDDEN_LAYER_WIDTH': J,
+                    'LR': K,
+                }
 
-    dqn = dqnModel(stateDim, actionDim, paramSet)
-    trainTask(dqn,actionSpace)
-    print("# batch size:{},width:{},lr:{}".format(I,J,K))
-    print("#-----------------------------------")
+                dqn = dqnModel(stateDim, actionDim, paramSet)
+                trainTask(dqn,actionSpace)
+                print("# batch size:{},width:{},lr:{}".format(I,J,K))
+                print("#-----------------------------------")
 
 if __name__ == '__main__':
     main()

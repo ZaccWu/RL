@@ -36,8 +36,8 @@ class dqnModel:
     self.modelSaver = tf.train.Saver()
     self.targetReplaceOp = None
 
-  def saveModel(self,episode):
-    self.modelSaver.save(self.session, "Model/dqn", global_step=episode)
+  def saveModel(self,episode,actionN):
+    self.modelSaver.save(self.session, "Model/"+str(actionN)+"dqn", global_step=episode)
 
   def QNetworkStructure(self):
     # input layer
