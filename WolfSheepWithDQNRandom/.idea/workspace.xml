@@ -40,13 +40,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="708c4c06-2297-467c-a68d-c552c0df8190" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exec/runExample.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exec/testDifferentTrans8Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/exec/testDifferentTrans8Action.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exec/testDifferentTrans9Action.py" beforeDir="false" afterPath="$PROJECT_DIR$/exec/testDifferentTrans9Action.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Qnetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Qnetwork.py" afterDir="false" />
-    </list>
+    <list default="true" id="708c4c06-2297-467c-a68d-c552c0df8190" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -139,6 +133,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="382" y="136" key="FileChooserDialogImpl" timestamp="1597280752523">
